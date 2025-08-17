@@ -1,0 +1,42 @@
+{
+  "equipment_types": [
+    "Excavator",
+    "Bulldozer", 
+    "Crane",
+    "Loader",
+    "Dump Truck",
+    "Forklift",
+    "Compactor",
+    "Grader"
+  ],
+  "brands": [
+    "CAT",
+    "Komatsu",
+    "Hitachi",
+    "Volvo",
+    "Liebherr",
+    "JCB",
+    "Bobcat",
+    "Case"
+  ],
+  "locations": [
+    "Site ABB",
+    "Construction Zone A",
+    "Mining Site North",
+    "Warehouse Complex",
+    "Port Terminal",
+    "Highway Project",
+    "Bridge Construction",
+    "Tunnel Site"
+  ],
+  "status_options": [
+    "Active",
+    "Idle", 
+    "Under Maintenance"
+  ],
+  "sample_equipment": {
+    "name": "Excavator Test CAT 323",
+    "status": "Active",
+    "location": "Site ABB"
+  }
+}

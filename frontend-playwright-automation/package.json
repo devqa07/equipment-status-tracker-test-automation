@@ -1,0 +1,49 @@
+{
+  "name": "equipment-status-tracker-frontend-automation",
+  "version": "1.0.0",
+  "description": "Frontend automation for Equipment Status Tracker using Playwright + TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:debug": "playwright test --debug",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:add-equipment": "playwright test specs/add-equipment.spec.ts",
+    "test:equipment-list": "playwright test specs/equipment-list.spec.ts",
+    "test:history-modal": "playwright test specs/history-modal.spec.ts",
+    "test:status-updates": "playwright test specs/status-updates.spec.ts",
+    "report": "playwright show-report",
+    "report:allure": "rm -rf allure-results/* allure-report/* && allure generate allure-results --clean && allure open",
+    "install:browsers": "playwright install",
+    "codegen": "playwright codegen",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "format": "prettier --write .",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "playwright",
+    "typescript",
+    "automation",
+    "testing",
+    "frontend"
+  ],
+  "author": "Devendra Singh",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.19.9",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "allure-playwright": "^2.11.0",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.0",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "faker": "^6.6.6"
+  }
+}
