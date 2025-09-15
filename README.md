@@ -170,15 +170,7 @@ equipment-status-tracker-application/
 
 ### 🚀 Project Access & Setup
 
-#### Option 1: Google Drive Access
-This project is shared via **Google Drive** for easy access and collaboration:
-
-1. **📁 Download Project**: Access the complete project folder from Google Drive
-2. **📦 Extract Files**: Extract the `equipment-status-tracker-application` folder
-3. **🔧 Setup Environment**: Follow the installation steps below
-4. **🧪 Run Tests**: Execute the testing framework
-
-#### Option 2: Clone from GitHub
+Clone from GitHub
 ```bash
 # Clone the repository
 git clone https://github.com/devqa07/equipment-status-tracker-application.git
