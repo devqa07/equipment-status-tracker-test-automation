@@ -1,0 +1,60 @@
+name: Equipment Status Tracker - Test Automation
+on:
+  push:
+    branches: [ main ]
+
+env:
+  TEST_ENV: qa
+  API_BASE_URL: https://qa-assignment-omega.vercel.app
+  PYTHON_VERSION: '3.13.3'
+  NODE_VERSION: '20'
+jobs:
+  api-tests:
+    name: API Automation Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+    - name: Install API dependencies
+      working-directory: ./api-automation
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Install Allure commandline
+      run: npm install -g allure-commandline
+
+    - name: Create reports directories
+      working-directory: ./api-automation
+      run: |
+        mkdir -p reports/allure-results
+        mkdir -p reports/allure-report
+
+    - name: Run API
+      working-directory: ./api-automation
+      run: python -m pytest --html=reports/api-report.html
+    
+    - name: Generate API Allure report
+      working-directory: ./api-automation
+      run: allure generate reports/allure-results --clean -o reports/allure-report
+
+    - name: Upload API test reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: api-test-reports.html
+        path: api-automation/reports/api-report.html
+        retention-days: 10
