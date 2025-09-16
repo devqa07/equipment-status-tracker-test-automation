@@ -53,7 +53,7 @@ jobs:
       run: allure generate reports/allure-results --clean -o reports/allure-report
       
     - name: Upload API test reports
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: api-test-reports
         path: |
