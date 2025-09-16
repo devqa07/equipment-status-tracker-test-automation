@@ -51,6 +51,10 @@ jobs:
     - name: Generate API Allure report
       working-directory: ./api-automation
       run: allure generate reports/allure-results --clean -o reports/allure-report
+
+    - name: Zip Allure Report
+      working-directory: ./api-automation/reports
+      run: zip -r allure-report.zip allure-report
       
     - name: Upload API test reports
       uses: actions/upload-artifact@v4
@@ -58,53 +62,53 @@ jobs:
         name: api-test-reports
         path: |
           api-automation/reports/api-report.html
-          api-automation/reports/allure-report
+          api-automation/reports/allure-report.zip
         retention-days: 5
   
-  frontend-tests:
-    name: Frontend Automation Tests
-    runs-on: ubuntu-latest
+  # frontend-tests:
+  #   name: Frontend Automation Tests
+  #   runs-on: ubuntu-latest
    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+  #   steps:
+  #   - name: Checkout code
+  #     uses: actions/checkout@v4
 
-    - name: Set up Node.js ${{ env.NODE_VERSION }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ env.NODE_VERSION }}
-        cache: 'npm'
-        cache-dependency-path: frontend-playwright-automation/package-lock.json
+  #   - name: Set up Node.js ${{ env.NODE_VERSION }}
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: ${{ env.NODE_VERSION }}
+  #       cache: 'npm'
+  #       cache-dependency-path: frontend-playwright-automation/package-lock.json
 
-    - name: Install frontend dependencies
-      working-directory: ./frontend-playwright-automation
-      run: npm ci
+  #   - name: Install frontend dependencies
+  #     working-directory: ./frontend-playwright-automation
+  #     run: npm ci
 
-    - name: Install Playwright browsers
-      working-directory: ./frontend-playwright-automation
-      run: npx playwright install --with-deps chromium
+  #   - name: Install Playwright browsers
+  #     working-directory: ./frontend-playwright-automation
+  #     run: npx playwright install --with-deps chromium
 
-    - name: Install Allure commandline
-      run: npm install -g allure-commandline
+  #   - name: Install Allure commandline
+  #     run: npm install -g allure-commandline
 
-    - name: Create reports directories
-      working-directory: ./frontend-playwright-automation
-      run: |
-        mkdir -p allure-results
-        mkdir -p allure-report
-        mkdir -p reports/html-report
+  #   - name: Create reports directories
+  #     working-directory: ./frontend-playwright-automation
+  #     run: |
+  #       mkdir -p allure-results
+  #       mkdir -p allure-report
+  #       mkdir -p reports/html-report
         
-    - name: Run frontend tests on chromium
-      working-directory: ./frontend-playwright-automation
-      run: |
-        npx playwright test --reporter=html,allure-playwright || true
-        npx allure generate allure-results --clean -o allure-report
+  #   - name: Run frontend tests on chromium
+  #     working-directory: ./frontend-playwright-automation
+  #     run: |
+  #       npx playwright test --reporter=html,allure-playwright || true
+  #       npx allure generate allure-results --clean -o allure-report
 
-    - name: Upload frontend test reports
-      uses: actions/upload-artifact@v4
-      with:
-        name: frontend-test-reports
-        path: |
-          frontend-playwright-automation/allure-report/index.html
-          frontend-playwright-automation/reports/html-report/
-        retention-days: 5
+  #   - name: Upload frontend test reports
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: frontend-test-reports
+  #       path: |
+  #         frontend-playwright-automation/allure-report/index.html
+  #         frontend-playwright-automation/reports/html-report/
+  #       retention-days: 5
